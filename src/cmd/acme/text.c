@@ -694,8 +694,33 @@ texttype(Text *t, Rune r)
 	case Kdown:
 		if(t->what == Tag)
 			goto Tagdown;
-		n = t->fr.maxlines/3;
-		goto case_Down;
+		// p9 n = t->fr.maxlines/3;
+		// p9 goto case_Down;
+		// pam start
+		typecommit(t);
+		q0 = t->q0;
+		q1 = q0;
+		if (q1) q1--;
+		nnb = 0;
+		while(q0<t->file->b.nc && textreadc(t, q0)!='\n')
+			q0++;
+		if (q0 == (t->file->b.nc)-1) {
+			textshow(t, q0, q0, TRUE);
+			return;
+		}
+		q0++;
+		while(q1>1 && textreadc(t, q1)!='\n'){
+			nnb++;
+			q1--;
+		}
+		while(q0<t->file->b.nc && (nnb>0 && textreadc(t, q0)!='\n')){
+			q0++;
+			nnb--;
+		}
+		if (q0>1 && q0<t->file->b.nc)
+			textshow(t, q0, q0, TRUE);
+		return;
+		// pam end
 	case Kscrollonedown:
 		if(t->what == Tag)
 			goto Tagdown;
@@ -712,8 +737,18 @@ texttype(Text *t, Rune r)
 	case Kup:
 		if(t->what == Tag)
 			goto Tagup;
-		n = t->fr.maxlines/3;
-		goto case_Up;
+		// p9 n = t->fr.maxlines/3;
+                // p9 goto case_Up;
+		// pam start
+		typecommit(t);
+		nnb = 0;
+		if(t->q0>0 && textreadc(t, t->q0-1)!='\n')
+			nnb = textbswidth(t, 0x15);
+		if( t->q0-nnb > 1  && textreadc(t, t->q0-nnb-1)=='\n' )
+			nnb++;
+		textshow(t, t->q0-nnb, t->q0-nnb, TRUE);
+		return;
+		// pam end
 	case Kscrolloneup:
 		if(t->what == Tag)
 			goto Tagup;
