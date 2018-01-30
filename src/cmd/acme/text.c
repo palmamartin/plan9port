@@ -795,6 +795,10 @@ texttype(Text *t, Rune r)
 			q0++;
 		textshow(t, q0, q0, TRUE);
 		return;
+	case Kcmd+'s': /* %S: save */
+		typecommit(t);
+		put(t, t, nil, TRUE, FALSE, nil, 0);
+		return;
 	case Kcmd+'c':	/* %C: copy */
 		typecommit(t);
 		cut(t, t, nil, TRUE, FALSE, nil, 0);
