@@ -556,6 +556,28 @@ int			globalautoindent;
 int			dodollarsigns;
 char*		mtpt;
 
+enum 
+{
+	Textback,
+	Texthigh,
+	Textbord,
+	Texttext,
+	Texthtext,
+	
+	Tagback,
+	Taghigh,
+	Tagbord,
+	Tagtext,
+	Taghtext,
+	
+	Butmod,
+	Butcol,
+	But2col,
+	But3col,
+
+	NTHEME
+};
+
 enum
 {
 	Kscrolloneup		= KF|0x20,
@@ -579,3 +601,4 @@ Channel	*cwarn;		/* chan(void*)[1] (really chan(unit)[1]) */
 QLock	editoutlk;
 
 #define	STACK	65536
+

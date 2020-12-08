@@ -14,6 +14,7 @@
 #include "dat.h"
 #include "fns.h"
 
+
 Buffer	snarfbuf;
 
 /*

@@ -17,6 +17,8 @@ Image	*tagcols[NCOL];
 Image	*textcols[NCOL];
 static Rune Ldot[] = { '.', 0 };
 
+extern long *theme;
+
 enum{
 	TABDIR = 3	/* width of tabs in directory windows */
 };
@@ -45,6 +47,10 @@ textredraw(Text *t, Rectangle r, Font *f, Image *b, int odx)
 	Rectangle rr;
 
 	frinit(&t->fr, r, f, b, t->fr.cols);
+	if(theme){
+		freeimage(t->fr.tick);
+		t->fr.tick = allocimage(f->display, Rect(0, 0, t->fr.tickscale*2, t->fr.font->height), t->fr.b->chan, 0, theme[Tagtext]);
+	}
 	rr = t->fr.r;
 	rr.min.x -= Scrollwid+Scrollgap;	/* back fill to scroll bar */
 	if(!t->fr.noredraw)
