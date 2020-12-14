@@ -63,9 +63,9 @@ wininit(Window *w, Window *clone, Rectangle r)
 		f = clone->body.file;
 		w->body.org = clone->body.org;
 		w->isscratch = clone->isscratch;
-		rf = rfget(FALSE, FALSE, FALSE, clone->body.reffont->f->name);
+		rf = rfget(1, FALSE, FALSE, clone->body.reffont->f->name);
 	}else
-		rf = rfget(FALSE, FALSE, FALSE, nil);
+		rf = rfget(1, FALSE, FALSE, nil);
 	f = fileaddtext(f, &w->body);
 	w->body.what = Body;
 	textinit(&w->body, f, r1, rf, textcols);
